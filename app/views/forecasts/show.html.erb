@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Weather Forecast</h2>
+          
+          <%= form_tag forecast_path, method: :get, class: "mb-4" do %>
+            <div class="input-group">
+              <%= text_field_tag :address, @address, class: "form-control", placeholder: "Enter address" %>
+              <%= submit_tag "Get Forecast", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+
+          <% if flash[:error] %>
+            <div class="alert alert-danger"><%= flash[:error] %></div>
+          <% end %>
+
+          <% if @weather %>
+            <div class="weather-info">
+              <% if @weather[:cached] %>
+                <div class="badge bg-info mb-2">Cached Result</div>
+              <% end %>
+              
+              <h3><%= @address %></h3>
+              <p class="h1 mb-3"><%= @weather[:temperature].round %>°F</p>
+              <p><strong>High:</strong> <%= @weather[:high].round %>°F</p>
+              <p><strong>Low:</strong> <%= @weather[:low].round %>°F</p>
+              <p><strong>Conditions:</strong> <%= @weather[:description].titleize %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
