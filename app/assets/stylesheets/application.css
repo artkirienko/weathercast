@@ -8,3 +8,13 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.clean-link {
+  color: inherit;
+  text-decoration: none;
+  /* no underline */
+}
+
+.heart {
+  color: #e25555;
+}
