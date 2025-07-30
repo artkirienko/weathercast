@@ -1,0 +1,20 @@
+<% current = forecast[:temperature] %>
+<% high = forecast[:temperature] + rand(3..8) %>
+<% low = forecast[:temperature] - rand(3..8) %>
+
+<div class="forecast">
+  <h2>Weather for <%= forecast[:location] %></h2>
+  <p class="current-temp">
+    Current: <span class="temp"><%= current %>&deg;C</span>
+    (<%= forecast[:conditions] %>)
+  </p>
+  <p class="high-low">
+    High: <span class="temp high"><%= high %>&deg;C</span>
+    Low: <span class="temp low"><%= low %>&deg;C</span>
+  </p>
+  <div class="daily-forecast">
+    <h3>Daily Forecast</h3>
+    <p>Today: Low <span class="temp low"><%= low %>&deg;C</span> - High <span class="temp high"><%= high %>&deg;C</span></p>
+    <p>Tomorrow: Low <span class="temp low"><%= low %>&deg;C</span> - High <span class="temp high"><%= high %>&deg;C</span></p>
+  </div>
+</div>

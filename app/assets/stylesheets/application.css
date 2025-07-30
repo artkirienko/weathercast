@@ -18,3 +18,79 @@
 .heart {
   color: #e25555;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.address-field {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.forecast {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+}
+
+.current-temp {
+  font-size: 18px;
+  color: #28a745;
+}
+
+.high-low .high {
+  color: #dc3545;
+}
+
+.high-low .low {
+  color: #007bff;
+}
+
+.daily-forecast {
+  margin-top: 15px;
+}
+
+header h1 {
+  color: #007bff;
+  text-align: center;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #6c757d;
+}
