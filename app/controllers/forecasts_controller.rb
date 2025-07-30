@@ -1,35 +1,58 @@
 class ForecastsController < ApplicationController
   def show
-    @address = params[:address]
+    @raw_address = params[:address]&.squish
+    @error = nil
 
-    if @address.blank? && params.key?(:button)
-      flash.now[:notice] = "Please enter an address to get the forecast."
-      # If you render a form here, wrap it in the same Turbo Frame ID.
-      # For now, we'll just show a message inside the frame.
-    elsif @address.blank?
+    if @raw_address.blank? && params.key?(:commit)
+      @error = "Please enter an address to get the forecast."
+    elsif @raw_address.blank?
       # do nothing, just render the form
-    elsif !valid_address_format?(@address)
-      flash.now[:alert] = "The provided address has an invalid format. Please try again."
+    elsif !valid_address_format?(@raw_address)
+      @error = "The provided address has an invalid format. Please try again."
     else
       begin
-        # Simulate fetching forecast data
-        Rails.logger.info "Simulating 2-second delay before fetching forecast for #{@address}..."
-        sleep 2
-        @forecast_data = {
-          location: @address,
-          temperature: rand(10..30), # Random temp between 10 and 30
-          conditions: [ "Sunny", "Cloudy", "Rainy", "Partly Cloudy" ].sample,
-          wind_speed: rand(5..20)
-        }
+        @address = Address.new(raw_address: @raw_address)
+
+        # cache address by raw_address -> geocode -> zip_code, lat, long
+        @address, _cached_at, _cached = CacheService.fetch(Address, :raw_address, @address.raw_address) do
+          if (@geocode = GeocodingService.geocode(@address.raw_address))
+            @address.latitude = @geocode&.dig(:latitude)
+            @address.longitude = @geocode&.dig(:longitude)
+            @address.zip_code = @geocode&.dig(:zip_code)
+            @address
+          else
+            raise "Geocoding failed for address: #{@address.raw_address}"
+          end
+        end
+
+        # cache address by zip_code -> lat, long
+        @address, _cached_at, _cached = CacheService.fetch(Address, :zip_code, @address.zip_code) do
+          @address
+        end
+
+        # cache forecast by zip_code -> forecast data
+        @forecast, @cached_at, @cached = CacheService.fetch(Forecast, :zip_code, @address.zip_code) do
+          if (@data = WeatherService.fetch_weather(@address.latitude, @address.longitude))
+            Forecast.new(zip_code: @address.zip_code, data: @data)
+          else
+            raise "Weather data fetch failed for lat: #{@address.latitude} long: #{@address.longitude} zip_code: #{@address.zip_code}"
+          end
+        end
+
+        @error = "Could not fetch forecast for '#{@raw_address}'. Please try again later." if @forecast.nil?
       rescue StandardError => e
-        flash.now[:alert] = "Could not fetch forecast for '#{@address}': #{e.message}"
+        @error = "Could not fetch forecast for '#{@raw_address}': #{e.message}"
       end
     end
   end
 
   private
 
+  # candidate to move to a model validation
   def valid_address_format?(address)
-    address.is_a?(String) && address.length.between?(3, 100) && address.match?(/\A[a-zA-Z0-9\s,.\-]+\z/)
+    return false unless address.is_a?(String)
+    return false unless address.length.between?(3, 100)
+
+    address.match?(/\A[a-zA-Z0-9\s,.\-]+\z/)
   end
 end
