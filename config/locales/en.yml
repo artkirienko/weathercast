@@ -1,31 +1,37 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
   hello: "Hello world"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  time:
+    formats:
+      default: "%H:%M:%S"
+      short: "%H:%M"
+      long: "%B %d, %Y %H:%M %p %Z"
+  datetime:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
+      long: "%A, %B %d, %Y at %I:%M %p"
+      compact: "%m/%d/%y %I:%M%p"
+  forecast:
+    search_placeholder: "Search Address, City, or Zip Code"
+    find_button: "Find forecast"
+    finding_button: "Finding forecast..."
+    no_results: "No forecast found for %{address}"
+    try_again: "Please try a different address, city, or zip code."
+    location_label: "Location:"
+    current_temperature: "Current temperature:"
+    high: "High:"
+    low: "Low:"
+    six_day_forecast: "6-day forecast"
+    today: "Today:"
+    zip_code_label: ", zip_code:"
+    cached_label: "Cached:"
+  footer:
+    human_made: "*100% Human-made, No AI involved"
+  header:
+    app_name: "Weather.AI, The Weather App"
+  application:
+    default_title: "Weathercast"

@@ -1,0 +1,78 @@
+<div class="forecast" data-controller="temperature">
+  <h3>
+    <span><%= t('forecast.location_label') %></span>
+    <span><%= @raw_address %></span>
+  </h3>
+
+  <p>
+    <span class="text-green">
+      <strong><%= t('forecast.current_temperature') %></strong>
+      <span class="c" data-temperature-target="celsius"><%= forecast&.data&.dig(:current_temperature, :c)&.round %>&deg;C</span>
+      <span class="f" data-temperature-target="fahrenheit"><%= forecast&.data&.dig(:current_temperature, :f)&.round %>&deg;F</span>
+    </span>
+  </p>
+
+  <p>
+    <span class="text-red">
+      <strong><%= t('forecast.high') %></strong>
+      <span class="c" data-temperature-target="celsius"><%= forecast&.data&.dig(:high, :c)&.round %>&deg;C</span>
+      <span class="f" data-temperature-target="fahrenheit"><%= forecast&.data&.dig(:high, :f)&.round %>&deg;F</span>
+    </span>
+    —
+    <span class="text-blue">
+      <strong><%= t('forecast.low') %></strong>
+      <span class="c" data-temperature-target="celsius"><%= forecast&.data&.dig(:low, :c)&.round %>&deg;C</span>
+      <span class="f" data-temperature-target="fahrenheit"><%= forecast&.data&.dig(:low, :f)&.round %>&deg;F</span>
+    </span>
+  </p>
+
+  <h3>
+    🗓 <%= t('forecast.six_day_forecast') %> 👉
+    <span data-temperature-target="celsiusToggle" data-action="click->temperature#showCelsius" class="temperature-toggle">&deg;C</span>
+    |
+    <span data-temperature-target="fahrenheitToggle" data-action="click->temperature#showFahrenheit" class="temperature-toggle">&deg;F</span>
+  </h3>
+  <p>
+    <strong><%= t('forecast.today') %></strong>
+    <span class="text-blue">
+      <strong><%= t('forecast.low') %></strong>
+      <span class="c" data-temperature-target="celsius"><%= forecast&.data&.dig(:low, :c)&.round %>&deg;C</span>
+      <span class="f" data-temperature-target="fahrenheit"><%= forecast&.data&.dig(:low, :f)&.round %>&deg;F</span>
+    </span>
+    —
+    <span class="text-red">
+      <strong><%= t('forecast.high') %></strong>
+      <span class="c" data-temperature-target="celsius"><%= forecast&.data&.dig(:high, :c)&.round %>&deg;C</span>
+      <span class="f" data-temperature-target="fahrenheit"><%= forecast&.data&.dig(:high, :f)&.round %>&deg;F</span>
+    </span>
+  </p>
+  <% forecast&.data&.dig(:extended_forecast)&.each do |forecast| %>
+    <p>
+      <strong><%= l(forecast&.dig(:date)&.to_date, format: :long) %></strong>
+      <span class="text-blue">
+        <strong><%= t('forecast.low') %></strong>
+        <span class="c" data-temperature-target="celsius"><%= forecast&.dig(:low, :c)&.round %>&deg;C</span>
+        <span class="f" data-temperature-target="fahrenheit"><%= forecast&.dig(:low, :f)&.round %>&deg;F</span>
+      </span>
+      —
+      <span class="text-red">
+        <strong><%= t('forecast.high') %></strong>
+        <span class="c" data-temperature-target="celsius"><%= forecast&.dig(:high, :c)&.round %>&deg;C</span>
+        <span class="f" data-temperature-target="fahrenheit"><%= forecast&.dig(:high, :f)&.round %>&deg;F</span>
+      </span>
+    </p>
+  <% end %>
+  <p>
+    <small>
+      <span>🌐 <%= @address&.latitude %>, <%= @address&.longitude %><%= t('forecast.zip_code_label') %> <%= @address&.zip_code %></span>
+      <span>
+        ⏳ <%= t('forecast.cached_label') %>
+        <% if @cached %>
+          <%= time_ago_in_words(@cached_at, include_seconds: true) %> ago
+        <% else %>
+          <%= @cached %>
+        <% end %>
+      </span>
+    </small>
+  </p>
+</div>

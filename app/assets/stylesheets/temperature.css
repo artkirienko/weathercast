@@ -1,0 +1,20 @@
+.temperature-toggle {
+  cursor: pointer;
+}
+
+.temperature-toggle.active {
+  font-weight: bold;
+  color: goldenrod;
+}
+
+.text-green {
+  color: green;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-blue {
+  color: blue;
+}
