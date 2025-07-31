@@ -141,6 +141,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
+    hiredis (0.6.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.0)
@@ -276,6 +277,10 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    redis (5.4.1)
+      redis-client (>= 0.22.0)
+    redis-client (0.25.1)
+      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.2)
       io-console (~> 0.5)
@@ -418,6 +423,7 @@ DEPENDENCIES
   debug
   factory_bot_rails (~> 6.5)
   geocoder!
+  hiredis (~> 0.6.3)
   importmap-rails
   jbuilder
   kamal
@@ -425,6 +431,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
+  redis (~> 5.4)
   rspec-rails (~> 8.0)
   rubocop-factory_bot (~> 2.27)
   rubocop-rails-omakase
