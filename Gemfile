@@ -63,6 +63,14 @@ group :development do
   gem "web-console"
 end
 
+group :test do
+  # Record your test suite's HTTP interactions and replay them during future test runs
+  gem "vcr", "~> 6.3"
+
+  # WebMock allows stubbing HTTP requests and setting expectations on HTTP requests
+  gem "webmock", "~> 3.25"
+end
+
 # Complete Ruby geocoding solution
 gem "geocoder", github: "alexreisner/geocoder", branch: "master"
 
