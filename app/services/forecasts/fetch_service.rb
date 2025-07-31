@@ -54,7 +54,10 @@ module Forecasts
     end
 
     def fetch_weather(address)
-      CacheService.fetch(Forecast, :zip_code, address.zip_code) do
+      cache_key_type = address.zip_code.present? ? :zip_code : :lat_lon
+      cache_key_value = address.zip_code.present? ? address.zip_code : "lat:#{address.latitude.round(5)},lon:#{address.longitude.round(5)}"
+
+      CacheService.fetch(Forecast, cache_key_type, cache_key_value) do
         weather_data = Weather::FetchService.fetch_weather(address.latitude, address.longitude)
         return nil unless weather_data
 
