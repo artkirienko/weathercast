@@ -62,3 +62,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+
+# Complete Ruby geocoding solution
+gem "geocoder", github: "alexreisner/geocoder", branch: "master"
+
+# OpenWeather API Ruby client
+gem "open-weather-ruby-client", "~> 0.7.0", git: "https://github.com/dblock/open-weather-ruby-client", branch: "master"
