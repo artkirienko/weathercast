@@ -5,7 +5,7 @@
 <% end %>
 
 <% if @forecast %>
-  <%= render partial: "forecast", locals: { forecast: @forecast } %>
+  <%= render partial: "forecast", locals: { forecast: @forecast, raw_address: @raw_address } %>
 <% else %>
   <div class="no-forecast">
     <% if params[:address].blank? && params[:commit].blank? %>
