@@ -6,77 +6,113 @@
 
 # Ruby Coding Assessment Weather App ⛅️
 
-### Requirements:
-- Must be done in Ruby on Rails
-- Accept an address as input
-- Retrieve forecast data for the given address. This should include, at minimum, the current temperature (Bonus points - Retrieve high/low and/or extended forecast)
-- Display the requested forecast details to the user
-- Cache the forecast details for 30 minutes for all subsequent requests by zip codes. Display indicator if result is pulled from cache
+A Ruby on Rails application that retrieves and displays weather forecasts based on user-provided addresses, with caching for performance optimization
 
-### Assumptions:
-- This project is open to interpretation
-- Functionality is a priority over form
-- If you get stuck, complete as much as you can
+## Table of Contents
 
-### Submission:
-- Use a public source code repository (GitHub, etc) to store your code
-- Send us the link to your completed code
+- [Features](#features)
+- [Requirements](#requirements)
+- [Assumptions](#assumptions)
+- [Submission](#submission)
+- [Architecture Overview](#architecture-overview)
+- [Design Patterns](#design-patterns)
+- [Scalability Considerations](#scalability-considerations)
+- [Probable Future Features](#probable-future-features)
+- [Getting Started](#getting-started)
+  - [Dev Containers (Recommended)](#dev-containers-recommended)
+  - [Local Setup](#local-setup)
+- [Running Tests](#running-tests)
+- [Deployment](#deployment)
 
-### Reminders:
-Please remember – it’s not just whether or not the code works that they will be focused on seeing – it’s all the rest of what goes into good Senior Software Engineering daily practices for Enterprise Production Level Code – such as specifically:
-- Unit Tests (#1 on the list of things people forget to include – so please remember, treat this as if it were true production level code, do not treat it just as an exercise),
-- Detailed Comments/Documentation within the code, also have a README file
-- Include *Decomposition* of the Objects in the Documentation
-- Design Patterns (if/where applicable)
-- Scalability Considerations (if applicable)
-- Naming Conventions (name things as you would name them in enterprise-scale production code environments)
-- Encapsulation, (don’t have 1 Method doing 55 things)
-- Code Re-Use, (don’t over-engineer the solution, but don’t under-engineer it either)
-- and any other industry Best Practices.
-- Remember to Include the UI ***
-- No not use ChatGPT/AI
+## Features
 
-### Tips
+- Accepts an address as input (e.g., `1 Infinite Loop, Cupertino, CA 95014, United States`)
+- Retrieves forecast data for the given address, including current temperature (optionally high/low and extended forecast)
+- Displays forecast details to the user
+- Caches forecast details for 30 minutes by zip code, with a cache-hit indicator
 
-- Emphasize clean, straightforward code without overcomplication
-- Ensure functional and maintainable code that's easy to understand and follow
-- Implement effective caching strategies for real-world application usage
-- This should take roughly 2-3 hours to complete
-- Flexibility in UI design; not prescribing specific methods
-- Ensure live deployments are robust and resilient to breakages
+## Requirements
 
-For the Weather App assessment for Apple, I wanted to share a few important notes to help guide your approach
+- Ruby on Rails
+- Accept address input
+- Retrieve and display weather forecast (current temperature required; high/low or extended forecast is a bonus)
+- Cache forecast results for 30 minutes by zip code, with cache-hit indicator
 
-Apple is not looking for the fanciest or most complex solution—instead, they value optimized, clean, and maintainable code. The goal is to create an app that someone else could easily pick up and continue building without needing to refactor or rewrite large portions of it
+## Assumptions
 
-The brief is intentionally open-ended to give you the autonomy to design and implement the app in a way that makes the most sense to you. That said, clarity, structure, and thoughtful problem-solving are key. Many candidates tend to over-engineer their solutions thinking it's expected, but Apple is really looking for practical, readable, and well-structured code
+- Functionality is prioritized over form
+- Open to interpretation
+- Complete as much as possible if stuck
 
-If you're able to include a light front end, that’s a nice bonus—it helps demonstrate how the app comes together visually, but it’s not a strict requirement
+## Submission
 
-## README
+- Use a public source code repository (e.g., GitHub)
+- Share the repository link upon completion
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Architecture Overview
 
-Things you may want to cover:
+- `ForecastsController`: Handles requests and renders the forecast view
+- `Address` and `Forecast` models: Manage validations and form interactions
+- `Forecasts::FetchService`: Orchestrates the workflow from address input to weather result
+- `Geocoding` module: Provides geocoding and reverse geocoding with multiple providers and fallback
+- `Weather` module: Fetches weather data for coordinates, supports multiple providers and fallback
+- `CacheService`: Universal caching and retrieval with TTL using Rails cache
 
-* Ruby version
+## Design Patterns
 
-* System dependencies
+- **Service Pattern**: Encapsulates business logic (geocoding, weather API, caching) in service classes for modularity and testability
+- **Adapter Pattern**: Integrates external APIs (weather, maps) via adapters to unify interfaces and decouple dependencies
+- **Strategy Pattern**: Encapsulates interchangeable algorithms (e.g., temperature conversion, data formatting, caching policies) for flexibility and separation of concerns
 
-* Configuration
+## Scalability Considerations
 
-* Database creation
+- Caching with Redis enables horizontal scalability
+- Geocoding may not always return a zip code (e.g., city/state only input)
+- Geospatial or radius-based caching could improve cache hit rates
+- Consider implementing other Rails caching strategies: https://guides.rubyonrails.org/caching_with_rails.html
 
-* Database initialization
+## Probable Future Features
 
-* How to run the test suite
+- Application monitoring (Sentry, DataDog, HoneyBadger)
+- Additional weather API adapters
+- Address autocomplete
+- Share/bookmark current forecast URL
+- Improved error handling and user-friendly error messages
+- Accessibility improvements
 
-* Services (job queues, cache servers, search engines, etc.)
+## 🚀 Getting Started
 
-* Deployment instructions
+### Dev Containers (Recommended)
 
-* ...
+1. Install Docker (Docker, Podman, or OrbStack)
+2. Install the Dev Containers extension (if using VS Code)
+3. Open the project directory and select "Re-open in dev container" when prompted
+
+### Local Setup
+
+- Ruby version: 3.4.4
+- System dependencies: SQLite, Redis (production only)
+- Required environment variables:
+  ```shell
+  RAILS_MASTER_KEY
+  GEOCODER_DEFAULT_EMAIL
+  GEOCODER_GEOAPIFY_API_KEY
+  OPENWEATHERMAP_API_KEY
+  ```
+- Database setup:
+  ```shell
+  bin/rails db:create db:setup
+  ```
+
+## Running Tests
+
+```shell
+RAILS_ENV=test bin/rspec
+```
+
+## Deployment
+
+- Deployed to Render: [https://weather-di4k.onrender.com](https://weather-di4k.onrender.com)
 
 [![Deployed to render.com](https://weather-di4k.onrender.com/1x1-spinup-render-com.png)](https://weather-di4k.onrender.com)
 

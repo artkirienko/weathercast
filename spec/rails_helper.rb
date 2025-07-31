@@ -1,3 +1,18 @@
+require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/cassettes'
+  config.hook_into :faraday
+  config.configure_rspec_metadata!
+  config.default_cassette_options = { record: :once }
+  # Ignore sensitive data (e.g., API keys) in recorded requests
+  config.filter_sensitive_data('<API_KEY>') { ENV['GEOCODING_API_KEY'] }
+  config.filter_sensitive_data('<WEATHER_API_KEY>') { ENV['WEATHER_API_KEY'] }
+  config.filter_sensitive_data('<GEOCODER_GEOAPIFY_API_KEY>') { Secrets.fetch(:geocoder_geoapify_api_key) }
+  config.filter_sensitive_data('<GEOCODER_DEFAULT_EMAIL>') { Secrets.fetch(:geocoder_default_email) }
+  config.filter_sensitive_data('<OPENWEATHERMAP_API_KEY>') { Secrets.fetch(:openweathermap_api_key) }
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'

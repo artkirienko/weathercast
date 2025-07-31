@@ -11,7 +11,8 @@
     <% if params[:address].blank? && params[:commit].blank? %>
       <h2><!-- Enter an address to get the forecast. 😉 --></h2>
     <% elsif @error %>
-      <p class="error-message"><%= @error %></p>
+      <p><%= t('forecast.try_again') %></p>
+      <!-- <p class="error-message"><%= @error %></p> -->
     <% elsif params[:address].present? %>
       <h2><%= t('forecast.no_results', address: params[:address]) %></h2>
       <p><%= t('forecast.try_again') %></p>
