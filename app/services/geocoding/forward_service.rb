@@ -1,13 +1,28 @@
 module Geocoding
+  # Service responsible for performing forward geocoding (address → coordinates)
+  # Attempts geocoding using a list of provider instances until one succeeds
   class ForwardService
+    # Performs forward geocoding using a list of providers
+    #
+    # @param address [String] the address to geocode
+    # @param providers [Array<Object>] list of provider instances (must respond to `#geocode`)
+    # @return [Hash, nil] a hash with :latitude, :longitude, and :zip_code,
+    #   or nil if all providers fail
     def self.geocode(address, providers: default_providers)
       new(providers).geocode(address)
     end
 
+    # Initializes the service with the given list of providers
+    #
+    # @param providers [Array<Object>] the geocoding providers to use
     def initialize(providers)
       @providers = providers
     end
 
+    # Attempts to geocode the given address using the configured providers
+    #
+    # @param address [String] the input address
+    # @return [Hash, nil] geocoded result or nil if all providers fail
     def geocode(address)
       return nil if address.blank?
 
@@ -25,6 +40,9 @@ module Geocoding
 
     private
 
+    # Returns the default list of geocoding providers
+    #
+    # @return [Array<Object>] array of default provider instances
     def self.default_providers
       [
         Providers::Nominatim.new,
@@ -33,6 +51,10 @@ module Geocoding
       ]
     end
 
+    # Normalizes the result returned by a geocoding provider
+    #
+    # @param result [Hash] the raw result from the provider
+    # @return [Hash] formatted hash with keys :latitude, :longitude, and :zip_code
     def format_result(result)
       {
         latitude: result[:latitude],
