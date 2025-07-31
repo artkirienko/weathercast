@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.geoapify.com/v1/geocode/search?apiKey=<GEOCODER_GEOAPIFY_API_KEY>&lang=en&text=1%20Infinite%20Loop,%20Cupertino,%20CA%2095014,%20USA
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 03 Aug 2025 09:52:34 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 9694ec446ec9841a-YVR
+      Api-Version:
+      - '1.0'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - accept, accept-language, content-language, access-control-max-age, access-control-allow-headers,
+        access-control-allow-methods, access-control-allow-origin, allow, api-version,
+        cf-ray, content-encoding, content-type, date, expect-ct, server, status, vary,
+        cache-control, etag, last-modified, expires, host, x-forwarded-for, user-agent,
+        cf-timezone, accept-encoding, cf-iplongitude, x-forwarded-proto, cf-iplatitude,
+        cf-ipcountry, cf-visitor, cf-ipcontinent, cf-ipcity, cf-region, cdn-loop,
+        cf-connecting-ip, cf-postal-code, cf-region-code, x-forwarded-port, x-lb-request-metrics,
+        x-lb-request-chain
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS, PUT
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - private, max-age=0, no-cache
+      Content-Disposition:
+      - inline; filename=response.geojson
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJ0eXBlIjoiRmVhdHVyZUNvbGxlY3Rpb24iLCJmZWF0dXJlcyI6W3sidHlwZSI6IkZlYXR1cmUiLCJwcm9wZXJ0aWVzIjp7ImRhdGFzb3VyY2UiOnsic291cmNlbmFtZSI6Im9wZW5zdHJlZXRtYXAiLCJhdHRyaWJ1dGlvbiI6IsKpIE9wZW5TdHJlZXRNYXAgY29udHJpYnV0b3JzIiwibGljZW5zZSI6Ik9wZW4gRGF0YWJhc2UgTGljZW5zZSIsInVybCI6Imh0dHBzOi8vd3d3Lm9wZW5zdHJlZXRtYXAub3JnL2NvcHlyaWdodCJ9LCJuYW1lIjoiSW5maW5pdGUgTG9vcCAxIiwicmVmIjoiSUwxIiwiY291bnRyeSI6IlVuaXRlZCBTdGF0ZXMiLCJjb3VudHJ5X2NvZGUiOiJ1cyIsInN0YXRlIjoiQ2FsaWZvcm5pYSIsImNvdW50eSI6IlNhbnRhIENsYXJhIENvdW50eSIsImNpdHkiOiJDdXBlcnRpbm8iLCJwb3N0Y29kZSI6Ijk1MDE0Iiwic3VidXJiIjoiQXBwbGUgQ2FtcHVzIiwic3RyZWV0IjoiSW5maW5pdGUgTG9vcCIsImhvdXNlbnVtYmVyIjoiMSIsImlzbzMxNjZfMiI6IlVTLUNBIiwibG9uIjotMTIyLjAzMDA5ODIwMjE1NTAyLCJsYXQiOjM3LjMzMTY2OTcsInN0YXRlX2NvZGUiOiJDQSIsInJlc3VsdF90eXBlIjoiYW1lbml0eSIsImZvcm1hdHRlZCI6IkluZmluaXRlIExvb3AgMSwgMSBJbmZpbml0ZSBMb29wLCBDdXBlcnRpbm8sIENBIDk1MDE0LCBVbml0ZWQgU3RhdGVzIG9mIEFtZXJpY2EiLCJhZGRyZXNzX2xpbmUxIjoiSW5maW5pdGUgTG9vcCAxIiwiYWRkcmVzc19saW5lMiI6IjEgSW5maW5pdGUgTG9vcCwgQ3VwZXJ0aW5vLCBDQSA5NTAxNCwgVW5pdGVkIFN0YXRlcyBvZiBBbWVyaWNhIiwidGltZXpvbmUiOnsibmFtZSI6IkFtZXJpY2EvTG9zX0FuZ2VsZXMiLCJvZmZzZXRfU1REIjoiLTA4OjAwIiwib2Zmc2V0X1NURF9zZWNvbmRzIjotMjg4MDAsIm9mZnNldF9EU1QiOiItMDc6MDAiLCJvZmZzZXRfRFNUX3NlY29uZHMiOi0yNTIwMCwiYWJicmV2aWF0aW9uX1NURCI6IlBTVCIsImFiYnJldmlhdGlvbl9EU1QiOiJQRFQifSwicGx1c19jb2RlIjoiODQ5VjhYSjkrTVgiLCJwbHVzX2NvZGVfc2hvcnQiOiJKOStNWCBDdXBlcnRpbm8sIFNhbnRhIENsYXJhIENvdW50eSwgVW5pdGVkIFN0YXRlcyIsInJhbmsiOnsiaW1wb3J0YW5jZSI6MC4wMDAwMDk5OTk5OTk5OTk5NTQ0OSwicG9wdWxhcml0eSI6NS4yMDczODMyODc1NTM1MzcsImNvbmZpZGVuY2UiOjEsImNvbmZpZGVuY2VfY2l0eV9sZXZlbCI6MSwiY29uZmlkZW5jZV9zdHJlZXRfbGV2ZWwiOjEsImNvbmZpZGVuY2VfYnVpbGRpbmdfbGV2ZWwiOjEsIm1hdGNoX3R5cGUiOiJpbm5lcl9wYXJ0In0sInBsYWNlX2lkIjoiNTEyNjdiMDIyMWVkODE1ZWMwNTk3ZDQ5MTkyNzc0YWE0MjQwZjAwMTAyZjkwMWFkNTZjYzA2MDAwMDAwMDBjMDAyMDE5MjAzMGY0OTZlNjY2OTZlNjk3NDY1MjA0YzZmNmY3MDIwMzEifSwiZ2VvbWV0cnkiOnsidHlwZSI6IlBvaW50IiwiY29vcmRpbmF0ZXMiOlstMTIyLjAzMDA5ODIwMjE1NTAyLDM3LjMzMTY2OTddfSwiYmJveCI6Wy0xMjIuMDMwNTU0MywzNy4zMzExOTU3LC0xMjIuMDI5ODI0NSwzNy4zMzIxNjQ5XX1dLCJxdWVyeSI6eyJ0ZXh0IjoiMSBJbmZpbml0ZSBMb29wLCBDdXBlcnRpbm8sIENBIDk1MDE0LCBVU0EiLCJwYXJzZWQiOnsiaG91c2VudW1iZXIiOiIxIiwic3RyZWV0IjoiaW5maW5pdGUgbG9vcCIsInBvc3Rjb2RlIjoiOTUwMTQiLCJjaXR5IjoiY3VwZXJ0aW5vIiwic3RhdGUiOiJjYSIsImNvdW50cnkiOiJ1c2EiLCJleHBlY3RlZF90eXBlIjoiYnVpbGRpbmcifX19
+  recorded_at: Sun, 03 Aug 2025 09:52:34 GMT
+recorded_with: VCR 6.3.1
