@@ -2,7 +2,7 @@ module Geocoding
   module Providers
     class OpenWeatherMap < Base
       def initialize
-        @api_key = Secrets.fetch(:open_weather_map_api_key)
+        @api_key = Secrets.fetch(:openweathermap_api_key)
       end
 
       def geocode(address)
