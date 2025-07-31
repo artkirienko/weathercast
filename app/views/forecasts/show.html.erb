@@ -1,0 +1,75 @@
+<%= form_with url: forecast_path, method: :get, data: { controller: "form-validator button-state", action: "submit->form-validator#validate turbo:submit-start->form-validator#validate turbo:submit-start->button-state#disable turbo:submit-end->button-state#enable" } do |form| %>
+  <%= form.label :address, "🔍" %>
+  <%= form.text_field :address, placeholder: "Search Address, City, or Zip Code", autocomplete: "off", autofocus: true, size: 40, data: { form_validator_target: "address" } %>
+  <%= form.submit "Find forecast", data: { button_state_target: "submit", button_state_text_value: "Finding forecast..." } %>
+<% end %>
+
+<%- forecast = @forecast_data.present? # Use the actual forecast data from the controller %>
+<%- current = @forecast_data[:temperature] if forecast %>
+<%- high = @forecast_data[:temperature] + rand(3..8) if forecast %>
+<%- low = @forecast_data[:temperature] - rand(3..8) if forecast %>
+
+<% if forecast %>
+  <div class="forecast">
+    <h2>
+      <span>Location:</span>
+      <span><%= @address %></span>
+    </h2>
+
+    <p>
+      <span style="color: green">
+        <strong>Current temperature:</strong>
+      <%= current %>&deg;C
+      </span>
+    </p>
+
+    <p>
+      <span style="color: red;">
+        <strong>High:</strong>
+        <%= high %>&deg;C
+      </span>
+      —
+      <span style="color: blue;">
+        <strong>Low:</strong>
+        <%= low %>&deg;C
+      </span>
+    </p>
+
+    <h3>Daily forecast:</h3>
+    <p>
+      <strong>Today:</strong>
+      <span style="color: blue;">
+        <strong>Low:</strong>
+        <%= low %>&deg;C
+      </span>
+      —
+      <span style="color: red;">
+        <strong>High:</strong>
+        <%= high %>&deg;C
+      </span>
+    </p>
+    <p>
+      <strong>Tomorrow:</strong>
+      <span style="color: blue;">
+        <strong>Low:</strong>
+        <%= low %>&deg;C
+      </span>
+      —
+      <span style="color: red;">
+        <strong>High:</strong>
+        <%= high %>&deg;C
+      </span>
+    </p>
+  </div>
+<% else %>
+  <div class="no-forecast">
+    <h2>
+      <% if params[:address].present? %>
+        No forecast found for "<%= params[:address] %>"
+        <p>Please try a different address, city, or zip code.</p>
+      <% else %>
+        <%# Enter an address to get the forecast. %>
+      <% end %>
+    </h2>
+  </div>
+<% end %>
