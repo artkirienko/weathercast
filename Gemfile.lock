@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/alexreisner/geocoder.git
-  revision: b2c0aa5526f90209883e3ca64b73d9559d21f729
+  revision: 68cd7d63d223d8b0532d4590eebceac78402fa6b
   branch: master
   specs:
-    geocoder (1.8.5)
+    geocoder (1.8.6)
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
 
